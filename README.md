@@ -4,6 +4,8 @@ Java implementation of "OCR Giro" by Nets by Halvor Holsten Strand.
 
 It currently does not support "Autogiro", "AvtaleGiro", "Direkte remittering" or "Egiro".
 
+(While tests are limited it is not "production ready".)
+
 ## Resources
 
 * The test resource `src/main/test/resources/ocr1.txt` is from the [OCR Giro specification](https://www.nets.eu/no-nb/PublishingImages/Lists/Accordion%20%20OCR%20giro/AllItems/OCR%20giro%20Systemspesifikasjon.pdf).

@@ -1,0 +1,13 @@
+language: java
+install: true
+
+jdk:
+  - oraclejdk8
+
+jobs:
+  - stage: build
+    script:
+    - ./gradlew clean build -s
+  - stage: test
+    script:
+    - ./gradlew test -s
