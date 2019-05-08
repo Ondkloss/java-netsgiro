@@ -1,4 +1,11 @@
+.gradle
 .idea
+.settings
+.vscode
+.classpath
+.project
+bin
+build
 out
 *.iml
 test-lib
