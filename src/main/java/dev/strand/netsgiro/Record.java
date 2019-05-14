@@ -1,6 +1,5 @@
 package dev.strand.netsgiro;
 
-import dev.strand.netsgiro.exception.ParseException;
 import dev.strand.netsgiro.exception.ValidationException;
 import dev.strand.netsgiro.values.FormatKode;
 import dev.strand.netsgiro.values.RecordType;
@@ -33,8 +32,7 @@ public class Record {
             tjenesteKode = getInt(3, 4);
             type = getInt(5, 6);
             recordType = getInt(7, 8);
-        }
-        catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
         }
 
@@ -60,25 +58,26 @@ public class Record {
     }
 
     private boolean validate() {
-        if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NULL && getType() == Type.BLANK && getRecordType() == RecordType.START_FORSENDELSE) {
+        if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NULL && getType() == Type.BLANK
+                && getRecordType() == RecordType.START_FORSENDELSE) {
             return true;
-        }
-        else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && getType() == Type.BLANK && getRecordType() == RecordType.START_OPPDRAG) {
+        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && getType() == Type.BLANK
+                && getRecordType() == RecordType.START_OPPDRAG) {
             return true;
-        }
-        else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && Util.list(10, 21).contains(type) && getRecordType() == RecordType.BELOPSPOST_1) {
+        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI
+                && Util.list(10, 21).contains(type) && getRecordType() == RecordType.BELOPSPOST_1) {
             return true;
-        }
-        else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && Util.list(10, 21).contains(type) && getRecordType() == RecordType.BELOPSPOST_2) {
+        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI
+                && Util.list(10, 21).contains(type) && getRecordType() == RecordType.BELOPSPOST_2) {
             return true;
-        }
-        else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && Util.list(20, 21).contains(type) && getRecordType() == RecordType.BELOPSPOST_3) {
+        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI
+                && Util.list(20, 21).contains(type) && getRecordType() == RecordType.BELOPSPOST_3) {
             return true;
-        }
-        else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && getType() == Type.BLANK && getRecordType() == RecordType.SLUTT_OPPDRAG) {
+        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && getType() == Type.BLANK
+                && getRecordType() == RecordType.SLUTT_OPPDRAG) {
             return true;
-        }
-        else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NULL && getType() == Type.BLANK && getRecordType() == RecordType.SLUTT_FORSENDELSE) {
+        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NULL && getType() == Type.BLANK
+                && getRecordType() == RecordType.SLUTT_FORSENDELSE) {
             return true;
         }
 
@@ -102,7 +101,7 @@ public class Record {
     }
 
     public String getString(int from, int to) {
-        return getData().substring(from-1, to);
+        return getData().substring(from - 1, to);
     }
 
 }

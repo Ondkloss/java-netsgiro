@@ -15,8 +15,8 @@ public enum FormatKode {
     }
 
     public static FormatKode fromString(String value) {
-        for(FormatKode fk : FormatKode.values()) {
-            if(fk.getValue().equals(value)) {
+        for (FormatKode fk : FormatKode.values()) {
+            if (fk.getValue().equals(value)) {
                 return fk;
             }
         }

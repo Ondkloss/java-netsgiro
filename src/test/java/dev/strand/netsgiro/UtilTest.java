@@ -1,8 +1,9 @@
 package dev.strand.netsgiro;
 
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 public class UtilTest {
 
@@ -23,10 +24,8 @@ public class UtilTest {
 
     @Test
     public void listTestInvalid() {
-        IllegalArgumentException thrown = Assertions.assertThrows(
-                IllegalArgumentException.class,
-                () -> Util.list(1, 0)
-        );
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> Util.list(1, 0));
         Assertions.assertTrue(thrown.getMessage().contains("From cannot be larger than to."));
     }
 
@@ -39,10 +38,8 @@ public class UtilTest {
 
     @Test
     public void getNumberOfBelopspostTestInvalid() {
-        IllegalArgumentException thrown = Assertions.assertThrows(
-                IllegalArgumentException.class,
-                () -> Assertions.assertEquals(3, Util.getNumberOfBelopspost(-3))
-        );
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> Assertions.assertEquals(3, Util.getNumberOfBelopspost(-3)));
         Assertions.assertTrue(thrown.getMessage().contains("Invalid transaction type."));
     }
 }

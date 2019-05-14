@@ -1,10 +1,10 @@
 package dev.strand.netsgiro;
 
-import dev.strand.netsgiro.exception.ParseException;
 import dev.strand.netsgiro.exception.ValidationException;
+import dev.strand.netsgiro.values.RecordType;
+import dev.strand.netsgiro.values.Type;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,6 @@ public class Oppdrag {
     private int avtaleId;
     private int oppdragsNummer;
     private long oppdragsKonto;
-    private int startFiller;
 
     // Slutt
     private int antallTransaksjoner;
@@ -26,19 +25,23 @@ public class Oppdrag {
     private LocalDate oppgjorsDato;
     private LocalDate forsteOppgjorsDato;
     private LocalDate sisteOppgjorsDato;
-    private int sluttFiller;
 
-    public void start(String data) throws ValidationException {
+    public Oppdrag(Record start, Record slutt, List<Record> contents) throws ValidationException {
+        start(start);
+        slutt(slutt);
+        parseContents(contents);
+    }
+
+    private void start(Record data) throws ValidationException {
         int aI, oN, sF;
         long oK;
 
         try {
-            aI = Integer.parseInt(data.substring(8, 17));
-            oN = Integer.parseInt(data.substring(17, 24));
-            oK = Long.parseLong(data.substring(24, 35));
-            sF = Integer.parseInt(data.substring(35, 80));
-        }
-        catch (NumberFormatException ex) {
+            aI = data.getInt(9, 17);
+            oN = data.getInt(18, 24);
+            oK = data.getLong(25, 35);
+            sF = data.getInt(36, 80);
+        } catch (NumberFormatException ex) {
             throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
         }
 
@@ -49,45 +52,58 @@ public class Oppdrag {
         avtaleId = aI;
         oppdragsNummer = oN;
         oppdragsKonto = oK;
-        startFiller = sF;
     }
 
-    public void slutt(String data) throws ParseException {
+    private void slutt(Record data) throws ValidationException {
         int aT, aR, sF;
         long sB;
         LocalDate oD, fOD, sOD;
 
         try {
-            aT = Integer.parseInt(data.substring(8, 16));
-            aR = Integer.parseInt(data.substring(16, 24));
-            sB = Integer.parseInt(data.substring(24, 41));
-            oD = LocalDate.parse(data.substring(41, 47), DateTimeFormatter.ofPattern("ddMMyy"));
-            fOD = LocalDate.parse(data.substring(47, 53), DateTimeFormatter.ofPattern("ddMMyy"));
-            sOD = LocalDate.parse(data.substring(53, 59), DateTimeFormatter.ofPattern("ddMMyy"));
-            sF = Integer.parseInt(data.substring(59, 80));
-        }
-        catch (NumberFormatException ex) {
-            throw new ParseException("Invalid numeric field. Could not be parsed.", ex);
-        }
-        catch (DateTimeParseException ex) {
-            throw new ParseException("Invalid date. Could not be parsed.");
+            aT = data.getInt(9, 16);
+            aR = data.getInt(17, 24);
+            sB = data.getInt(25, 41);
+            oD = data.getLocalDate(42, 47);
+            fOD = data.getLocalDate(48, 53);
+            sOD = data.getLocalDate(54, 59);
+            sF = data.getInt(60, 80);
+        } catch (NumberFormatException ex) {
+            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
+        } catch (DateTimeParseException ex) {
+            throw new ValidationException("Invalid date. Could not be parsed.");
         }
 
         if (0 != sF) {
-            throw new ParseException("Invalid filler. Should be all zeros.");
+            throw new ValidationException("Invalid filler. Should be all zeros.");
         }
 
         antallTransaksjoner = aT;
         antallRecords = aR;
         sumBelop = sB;
-        sluttFiller = sF;
         oppgjorsDato = oD;
         forsteOppgjorsDato = fOD;
         sisteOppgjorsDato = sOD;
     }
 
+    private void parseContents(List<Record> contents) throws ValidationException {
+        for (int i = 0; i < contents.size(); i++) {
+            Record r = contents.get(i);
+            if (r.getRecordType() == RecordType.BELOPSPOST_1) {
+                if (r.getType() == Type.REVERSERING_MED_FRITEKST || r.getType() == Type.KJOP_MED_FRITEKST) {
+                    addTransaksjon(new Transaksjon(contents.get(i), contents.get(i + 1), contents.get(i + 2)));
+                    i += 2;
+                } else {
+                    addTransaksjon(new Transaksjon(contents.get(i), contents.get(i + 1)));
+                    i += 1;
+                }
+            } else {
+                throw new ValidationException("Invalid transaksjon. Missing start.");
+            }
+        }
+    }
+
     public boolean addTransaksjon(Transaksjon t) {
-        if(t == null) {
+        if (t == null) {
             throw new IllegalArgumentException("Cannot add null elements.");
         }
         return transaksjoner.add(t);

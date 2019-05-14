@@ -21,8 +21,8 @@ public enum RecordType {
     }
 
     public static RecordType fromInt(int value) {
-        for(RecordType rt : RecordType.values()) {
-            if(rt.getValue() == value) {
+        for (RecordType rt : RecordType.values()) {
+            if (rt.getValue() == value) {
                 return rt;
             }
         }

@@ -16,8 +16,8 @@ public enum TjenesteKode {
     }
 
     public static TjenesteKode fromInt(int value) {
-        for(TjenesteKode tk : TjenesteKode.values()) {
-            if(tk.getValue() == value) {
+        for (TjenesteKode tk : TjenesteKode.values()) {
+            if (tk.getValue() == value) {
                 return tk;
             }
         }

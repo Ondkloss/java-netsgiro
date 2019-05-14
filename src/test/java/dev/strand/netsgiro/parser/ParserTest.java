@@ -26,9 +26,8 @@ public class ParserTest {
 
     @Disabled
     @Test
-    public void parserTest2() throws ParseException, IOException, URISyntaxException {
-        List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/ocr2.txt").toURI()),
-                StandardCharsets.UTF_8);
+    public void parserTest2() throws ParseException, IOException {
+        List<String> lines = Files.readAllLines(Paths.get("test", "res", "ocr2.txt"), StandardCharsets.UTF_8);
         Parser p = new Parser(lines.toArray(new String[0]));
         Forsendelse f = p.parse();
         System.out.println(f);

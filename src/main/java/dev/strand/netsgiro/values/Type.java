@@ -27,8 +27,8 @@ public enum Type {
     }
 
     public static Type fromInt(int value) {
-        for(Type t : Type.values()) {
-            if(t.getValue() == value) {
+        for (Type t : Type.values()) {
+            if (t.getValue() == value) {
                 return t;
             }
         }

@@ -6,6 +6,20 @@ It currently does not support "Autogiro", "AvtaleGiro", "Direkte remittering" or
 
 (While tests are limited it is not "production ready".)
 
+## Source commands
+
+To build:
+
+    ./gradlew build
+
+To test:
+
+    ./gradlew test
+
+To test coverage:
+
+    ./gradlew jacocoTestReport
+
 ## Resources
 
 * The test resource `src/main/test/resources/ocr1.txt` is from the [OCR Giro specification](https://www.nets.eu/no-nb/PublishingImages/Lists/Accordion%20%20OCR%20giro/AllItems/OCR%20giro%20Systemspesifikasjon.pdf).

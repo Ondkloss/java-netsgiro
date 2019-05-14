@@ -27,7 +27,7 @@ public class Util {
     }
 
     public static int getNumberOfBelopspost(int transactionType) throws IllegalArgumentException {
-        if(!list(10,21).contains(transactionType)) {
+        if (!list(10, 21).contains(transactionType)) {
             throw new IllegalArgumentException("Invalid transaction type.");
         }
 
