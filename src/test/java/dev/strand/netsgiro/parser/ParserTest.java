@@ -3,6 +3,7 @@ package dev.strand.netsgiro.parser;
 import dev.strand.netsgiro.Forsendelse;
 import dev.strand.netsgiro.exception.ParseException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParserTest {
@@ -31,5 +33,28 @@ public class ParserTest {
         Parser p = new Parser(lines.toArray(new String[0]));
         Forsendelse f = p.parse();
         System.out.println(f);
+    }
+
+    @Test
+    public void parserExceptionTooFewLinesTest() throws ParseException, IOException, URISyntaxException {
+        List<String> lines = new ArrayList<>();
+        ParseException thrown = Assertions.assertThrows(ParseException.class, () -> {
+            Parser p = new Parser(lines.toArray(new String[0]));
+            p.parse();
+        });
+        Assertions.assertEquals("Valid data cannot be less than two records.", thrown.getMessage());
+    }
+
+    @Test
+    public void parserExceptionFromValidationTest() throws ParseException, IOException, URISyntaxException {
+        List<String> lines = new ArrayList<>();
+        lines.add("NY000010000090900170031000102000000000000000000000000000000000000000000000000000"); // Start forsendelse with error
+        lines.add("NY000089000000230000005000000000001563000240304000000000000000000000000000000000"); // End forsendelse
+        ParseException thrown = Assertions.assertThrows(ParseException.class, () -> {
+            Parser p = new Parser(lines.toArray(new String[0]));
+            p.parse();
+        });
+        Assertions.assertEquals("Error during validation.", thrown.getMessage());
+        Assertions.assertEquals("Invalid data sender. Should be 00008080 (NETS).", thrown.getCause().getMessage());
     }
 }

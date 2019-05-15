@@ -12,13 +12,9 @@ To build:
 
     ./gradlew build
 
-To test:
+To test with coverage report:
 
-    ./gradlew test
-
-To test coverage:
-
-    ./gradlew jacocoTestReport
+    ./gradlew test jacocoTestReport
 
 ## Resources
 
