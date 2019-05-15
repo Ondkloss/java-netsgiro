@@ -5,6 +5,9 @@ import java.util.List;
 
 public class Util {
 
+    private Util() {
+    }
+
     /**
      * Get a list of all integers between two values, inclusive in both ends.
      *
