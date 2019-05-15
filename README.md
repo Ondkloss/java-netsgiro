@@ -1,6 +1,8 @@
 # NetsGiro
 
-Java implementation of "OCR Giro" by Nets by Halvor Holsten Strand.
+[![Build Status](https://travis-ci.com/Ondkloss/java-netsgiro.svg?branch=master)](https://travis-ci.com/Ondkloss/java-netsgiro) [![Coverage Status](https://coveralls.io/repos/github/Ondkloss/java-netsgiro/badge.svg?branch=master)](https://coveralls.io/github/Ondkloss/java-netsgiro?branch=master)
+
+Java implementation of "OCR Giro" specification by Nets.
 
 It currently does not support "Autogiro", "AvtaleGiro", "Direkte remittering" or "Egiro".
 

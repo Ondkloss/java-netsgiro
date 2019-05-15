@@ -7,4 +7,4 @@ jdk:
   - oraclejdk11
 
 script:
-  - ./gradlew clean build -s
+  - ./gradlew -s clean build jacocoTestReport coveralls
