@@ -35,14 +35,38 @@ public class TransaksjonTest {
     }
 
     @Test
-    public void forsendelseInvalidNumericStartTest() throws ValidationException {
+    public void transaksjonInvalidNumericTest() throws ValidationException {
         ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
-            Record start = new Record(
-                    "NY0000100000ABCD0170031000102000000000000000000000000000000000000000000000000000");
-            Record slutt = new Record(
-                    "NY000089000000230000005000000000001563000240304000000000000000000000000000000000");
-            new Forsendelse(start, slutt, new ArrayList<Record>());
+            Record post1 = new Record(
+                    "NY091030000000A2403040124112345000000000000044000           33000083672049000000");
+            Record post2 = new Record(
+                    "NY091031000000160004322610945611540000000230304888810111280000000000000000000000");
+            new Transaksjon(post1, post2);
         });
         Assertions.assertEquals("Invalid numeric field. Could not be parsed.", thrown.getMessage());
+    }
+
+    @Test
+    public void transaksjonInvalidDateTest() throws ValidationException {
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+            Record post1 = new Record(
+                    "NY09103000000012403AB0124112345000000000000044000           33000083672049000000");
+            Record post2 = new Record(
+                    "NY091031000000160004322610945611540000000230304888810111280000000000000000000000");
+            new Transaksjon(post1, post2);
+        });
+        Assertions.assertEquals("Invalid date. Could not be parsed.", thrown.getMessage());
+    }
+
+    @Test
+    public void transaksjonMismatchTransactionTypeTest() throws ValidationException {
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+            Record post1 = new Record(
+                    "NY09103000000012403040124112345000000000000044000           33000083672049000000");
+            Record post2 = new Record(
+                    "NY091131000000160004322610945611540000000230304888810111280000000000000000000000");
+            new Transaksjon(post1, post2);
+        });
+        Assertions.assertEquals("Invalid transaction type. Should match type from previous post.", thrown.getMessage());
     }
 }
