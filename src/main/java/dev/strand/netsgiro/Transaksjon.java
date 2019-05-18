@@ -24,7 +24,6 @@ public class Transaksjon {
     // Belop2
     private long blankettNummer;
     private int arkivReferanse;
-    private int belop2Filler1;
     private LocalDate oppdragsDato;
     private long debetKonto;
 
@@ -58,7 +57,7 @@ public class Transaksjon {
             lN = data.getInt(27, 31);
             f = data.getString(32, 32);
             b = data.getLong(33, 49);
-            k = data.getString(50, 74);
+            k = data.getString(50, 74).trim();
             kU = data.getInt(75, 76);
             b1F = data.getInt(77, 80);
         } catch (NumberFormatException ex) {
@@ -131,7 +130,6 @@ public class Transaksjon {
 
         blankettNummer = bN;
         arkivReferanse = aR;
-        belop2Filler1 = b2F1;
         oppdragsDato = oD;
         debetKonto = dK;
     }
@@ -166,5 +164,110 @@ public class Transaksjon {
 
     public int getTransaksjonsType() {
         return transaksjonsType;
+    }
+
+    /**
+     * @return the arkivReferanse
+     */
+    public int getArkivReferanse() {
+        return arkivReferanse;
+    }
+
+    /**
+     * @return the belop
+     */
+    public long getBelop() {
+        return belop;
+    }
+
+    /**
+     * @return the blankettNummer
+     */
+    public long getBlankettNummer() {
+        return blankettNummer;
+    }
+
+    /**
+     * @return the dagKode
+     */
+    public int getDagKode() {
+        return dagKode;
+    }
+
+    /**
+     * @return the debetKonto
+     */
+    public long getDebetKonto() {
+        return debetKonto;
+    }
+
+    /**
+     * @return the delavregningsNummer
+     */
+    public int getDelavregningsNummer() {
+        return delavregningsNummer;
+    }
+
+    /**
+     * @return the fortegn
+     */
+    public String getFortegn() {
+        return fortegn;
+    }
+
+    /**
+     * @return the fritekstMelding
+     */
+    public String getFritekstMelding() {
+        return fritekstMelding;
+    }
+
+    /**
+     * @return the kid
+     */
+    public String getKid() {
+        return kid;
+    }
+
+    /**
+     * @return the kortUtsteder
+     */
+    public int getKortUtsteder() {
+        return kortUtsteder;
+    }
+
+    /**
+     * @return the lopeNummer
+     */
+    public int getLopeNummer() {
+        return lopeNummer;
+    }
+
+    /**
+     * @return the oppdragsDato
+     */
+    public LocalDate getOppdragsDato() {
+        return oppdragsDato;
+    }
+
+    /**
+     * @return the oppgjorsDato
+     */
+    public LocalDate getOppgjorsDato() {
+        return oppgjorsDato;
+    }
+
+    /**
+     * @return the sentralId
+     */
+    public int getSentralId() {
+        return sentralId;
+    }
+
+    /**
+     * @return the transaksjonsNummer
+     */
+    public int getTransaksjonsNummer() {
+        return transaksjonsNummer;
     }
 }
