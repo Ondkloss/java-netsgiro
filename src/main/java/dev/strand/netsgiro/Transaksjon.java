@@ -64,7 +64,7 @@ public class Transaksjon {
         } catch (NumberFormatException ex) {
             throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
         } catch (DateTimeParseException ex) {
-            throw new ValidationException("Invalid date. Could not be parsed.");
+            throw new ValidationException("Invalid date. Could not be parsed.", ex);
         }
 
         if (!Util.list(10, 21).contains(t)) {
@@ -115,7 +115,7 @@ public class Transaksjon {
         } catch (NumberFormatException ex) {
             throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
         } catch (DateTimeParseException ex) {
-            throw new ValidationException("Invalid date. Could not be parsed.");
+            throw new ValidationException("Invalid date. Could not be parsed.", ex);
         }
 
         if (t != transaksjonsType) {
@@ -148,7 +148,7 @@ public class Transaksjon {
         } catch (NumberFormatException ex) {
             throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
         } catch (DateTimeParseException ex) {
-            throw new ValidationException("Invalid date. Could not be parsed.");
+            throw new ValidationException("Invalid date. Could not be parsed.", ex);
         }
 
         if (t != transaksjonsType) {

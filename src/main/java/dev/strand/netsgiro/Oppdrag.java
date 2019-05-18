@@ -70,7 +70,7 @@ public class Oppdrag {
         } catch (NumberFormatException ex) {
             throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
         } catch (DateTimeParseException ex) {
-            throw new ValidationException("Invalid date. Could not be parsed.");
+            throw new ValidationException("Invalid date. Could not be parsed.", ex);
         }
 
         if (0 != sF) {

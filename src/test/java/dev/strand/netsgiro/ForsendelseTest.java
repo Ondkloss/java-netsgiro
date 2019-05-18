@@ -39,6 +39,18 @@ public class ForsendelseTest {
     }
 
     @Test
+    public void forsendelseInvalidDateStartTest() throws ValidationException {
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+            Record start = new Record(
+                    "NY000010000080800170031000102000000000000000000000000000000000000000000000000000");
+            Record slutt = new Record(
+                    "NY0000890000002300000050000000000015630002403AB000000000000000000000000000000000");
+            new Forsendelse(start, slutt, new ArrayList<Record>());
+        });
+        Assertions.assertEquals("Invalid date. Could not be parsed.", thrown.getMessage());
+    }
+
+    @Test
     public void forsendelseInvalidFillerStartTest() throws ValidationException {
         ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
             Record start = new Record(
@@ -72,5 +84,34 @@ public class ForsendelseTest {
             new Forsendelse(start, slutt, new ArrayList<Record>());
         });
         Assertions.assertEquals("Invalid filler. Should be all zeros.", thrown.getMessage());
+    }
+
+    @Test
+    public void forsendelseAddNullTest() throws ValidationException {
+        IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Record start = new Record(
+                    "NY000010000080800170031000102000000000000000000000000000000000000000000000000000");
+            Record slutt = new Record(
+                    "NY000089000000230000005000000000001563000240304000000000000000000000000000000000");
+            Forsendelse f = new Forsendelse(start, slutt, new ArrayList<Record>());
+            f.addOppdrag(null);
+        });
+        Assertions.assertEquals("Cannot add null elements.", thrown.getMessage());
+    }
+
+    @Test
+    public void forsendelseInvalidContentsTest() throws ValidationException {
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+            Record start = new Record(
+                    "NY000010000080800170031000102000000000000000000000000000000000000000000000000000");
+            Record slutt = new Record(
+                    "NY000089000000230000005000000000001563000240304000000000000000000000000000000000");
+            Record startOppdrag = new Record(
+                    "NY090020001767676000000199991111111000000000000000000000000000000000000000000000");
+            ArrayList<Record> list = new ArrayList<>();
+            list.add(startOppdrag);
+            new Forsendelse(start, slutt, list);
+        });
+        Assertions.assertEquals("Invalid oppdrag. Missing end.", thrown.getMessage());
     }
 }
