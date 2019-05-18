@@ -109,4 +109,74 @@ public class Oppdrag {
         return transaksjoner.add(t);
     }
 
+    /**
+     * @return the antallRecords
+     */
+    public int getAntallRecords() {
+        return antallRecords;
+    }
+
+    /**
+     * @return the antallTransaksjoner
+     */
+    public int getAntallTransaksjoner() {
+        return antallTransaksjoner;
+    }
+
+    /**
+     * @return the avtaleId
+     */
+    public int getAvtaleId() {
+        return avtaleId;
+    }
+
+    /**
+     * @return the forsteOppgjorsDato
+     */
+    public LocalDate getForsteOppgjorsDato() {
+        return forsteOppgjorsDato;
+    }
+
+    /**
+     * @return the oppdragsKonto
+     */
+    public long getOppdragsKonto() {
+        return oppdragsKonto;
+    }
+
+    /**
+     * @return the oppdragsNummer
+     */
+    public int getOppdragsNummer() {
+        return oppdragsNummer;
+    }
+
+    /**
+     * @return the oppgjorsDato
+     */
+    public LocalDate getOppgjorsDato() {
+        return oppgjorsDato;
+    }
+
+    /**
+     * @return the sisteOppgjorsDato
+     */
+    public LocalDate getSisteOppgjorsDato() {
+        return sisteOppgjorsDato;
+    }
+
+    /**
+     * @return the sumBelop
+     */
+    public long getSumBelop() {
+        return sumBelop;
+    }
+
+    /**
+     * @return the transaksjoner
+     */
+    public List<Transaksjon> getTransaksjoner() {
+        return transaksjoner;
+    }
+
 }
