@@ -36,6 +36,17 @@ public class ParserTest {
     }
 
     @Test
+    public void parserTest3() throws ParseException, IOException, URISyntaxException {
+        // This test is hand made with the first transaction being replaced with one of type 21
+        // The rest of the file is identical to ocr1.txt
+        List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/ocr3.txt").toURI()),
+                StandardCharsets.UTF_8);
+        Parser p = new Parser(lines.toArray(new String[0]));
+        Forsendelse f = p.parse();
+        System.out.println(f);
+    }
+
+    @Test
     public void parserExceptionTooFewLinesTest() throws ParseException, IOException, URISyntaxException {
         List<String> lines = new ArrayList<>();
         ParseException thrown = Assertions.assertThrows(ParseException.class, () -> {
