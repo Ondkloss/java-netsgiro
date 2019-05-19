@@ -7,6 +7,7 @@ import dev.strand.netsgiro.values.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Oppdrag {
@@ -92,7 +93,7 @@ public class Oppdrag {
         }
     }
 
-    public boolean addTransaksjon(Transaksjon t) {
+    protected boolean addTransaksjon(Transaksjon t) {
         if (t == null) {
             throw new IllegalArgumentException("Cannot add null elements.");
         }
@@ -166,7 +167,7 @@ public class Oppdrag {
      * @return the transaksjoner
      */
     public List<Transaksjon> getTransaksjoner() {
-        return transaksjoner;
+        return Collections.unmodifiableList(transaksjoner);
     }
 
 }

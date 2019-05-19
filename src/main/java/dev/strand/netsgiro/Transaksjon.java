@@ -144,6 +144,9 @@ public class Transaksjon {
         fritekstMelding = fM;
     }
 
+    /**
+     * @return the transaksjonsType
+     */
     public int getTransaksjonsType() {
         return transaksjonsType;
     }

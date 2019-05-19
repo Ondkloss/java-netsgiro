@@ -116,7 +116,7 @@ public class Record {
         try {
         return getData().substring(from - 1, to);
         } catch (IndexOutOfBoundsException ex) {
-            throw new ValidationException("Invalid region. Requested segment is out of bounds.");
+            throw new ValidationException("Invalid region. Requested segment is out of bounds.", ex);
         }
     }
 

@@ -114,4 +114,32 @@ public class ForsendelseTest {
         });
         Assertions.assertEquals("Invalid oppdrag. Missing end.", thrown.getMessage());
     }
+
+    @Test
+    public void forsendelseInvalidContentTest() throws ValidationException {
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+            Record start = new Record(
+                    "NY000010000080800170031000102000000000000000000000000000000000000000000000000000");
+            Record slutt = new Record(
+                    "NY000089000000230000005000000000001563000240304000000000000000000000000000000000");
+            ArrayList<Record> list = new ArrayList<>();
+            list.add(new Record("NY090088000000230000004800000000001563000240304240304240304000000000000000000000"));
+            new Forsendelse(start, slutt, list);
+        });
+        Assertions.assertEquals("Invalid oppdrag. Missing start or contents.", thrown.getMessage());
+    }
+
+    @Test
+    public void forsendelseInvalidContentTest2() throws ValidationException {
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+            Record start = new Record(
+                    "NY000010000080800170031000102000000000000000000000000000000000000000000000000000");
+            Record slutt = new Record(
+                    "NY000089000000230000005000000000001563000240304000000000000000000000000000000000");
+            ArrayList<Record> list = new ArrayList<>();
+            list.add(new Record("NY09103000000012403040124112345000000000000044000           33000083672049000000"));
+            new Forsendelse(start, slutt, list);
+        });
+        Assertions.assertEquals("Invalid oppdrag. Missing start.", thrown.getMessage());
+    }
 }

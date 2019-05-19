@@ -6,6 +6,7 @@ import dev.strand.netsgiro.values.RecordType;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Forsendelse {
@@ -99,7 +100,7 @@ public class Forsendelse {
         }
     }
 
-    public boolean addOppdrag(Oppdrag o) {
+    protected boolean addOppdrag(Oppdrag o) {
         if (o == null) {
             throw new IllegalArgumentException("Cannot add null elements.");
         }
@@ -145,7 +146,7 @@ public class Forsendelse {
      * @return the oppdrag
      */
     public List<Oppdrag> getOppdrag() {
-        return oppdrag;
+        return Collections.unmodifiableList(oppdrag);
     }
 
     /**
