@@ -36,14 +36,10 @@ public class Oppdrag {
         int aI, oN, sF;
         long oK;
 
-        try {
-            aI = data.getInt(9, 17);
-            oN = data.getInt(18, 24);
-            oK = data.getLong(25, 35);
-            sF = data.getInt(36, 80);
-        } catch (NumberFormatException ex) {
-            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
-        }
+        aI = data.getInt(9, 17);
+        oN = data.getInt(18, 24);
+        oK = data.getLong(25, 35);
+        sF = data.getInt(36, 80);
 
         if (0 != sF) {
             throw new ValidationException("Invalid filler. Should be all zeros.");
@@ -59,19 +55,13 @@ public class Oppdrag {
         long sB;
         LocalDate oD, fOD, sOD;
 
-        try {
-            aT = data.getInt(9, 16);
-            aR = data.getInt(17, 24);
-            sB = data.getInt(25, 41);
-            oD = data.getLocalDate(42, 47);
-            fOD = data.getLocalDate(48, 53);
-            sOD = data.getLocalDate(54, 59);
-            sF = data.getInt(60, 80);
-        } catch (NumberFormatException ex) {
-            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
-        } catch (DateTimeParseException ex) {
-            throw new ValidationException("Invalid date. Could not be parsed.", ex);
-        }
+        aT = data.getInt(9, 16);
+        aR = data.getInt(17, 24);
+        sB = data.getInt(25, 41);
+        oD = data.getLocalDate(42, 47);
+        fOD = data.getLocalDate(48, 53);
+        sOD = data.getLocalDate(54, 59);
+        sF = data.getInt(60, 80);
 
         if (0 != sF) {
             throw new ValidationException("Invalid filler. Should be all zeros.");

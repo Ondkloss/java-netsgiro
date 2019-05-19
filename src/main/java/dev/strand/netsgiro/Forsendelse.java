@@ -32,14 +32,10 @@ public class Forsendelse {
     private void start(Record data) throws ValidationException {
         int dA, fN, dM, sF;
 
-        try {
-            dA = data.getInt(9, 16);
-            fN = data.getInt(17, 23);
-            dM = data.getInt(24, 31);
-            sF = data.getInt(32, 80);
-        } catch (NumberFormatException ex) {
-            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
-        }
+        dA = data.getInt(9, 16);
+        fN = data.getInt(17, 23);
+        dM = data.getInt(24, 31);
+        sF = data.getInt(32, 80);
 
         if (8080 != dA) {
             throw new ValidationException("Invalid data sender. Should be 00008080 (NETS).");
@@ -57,17 +53,11 @@ public class Forsendelse {
         long sB;
         LocalDate oD;
 
-        try {
-            aT = data.getInt(9, 16);
-            aR = data.getInt(17, 24);
-            sB = data.getLong(25, 41);
-            oD = data.getLocalDate(42, 47);
-            sF = data.getInt(48, 80);
-        } catch (NumberFormatException ex) {
-            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
-        } catch (DateTimeParseException ex) {
-            throw new ValidationException("Invalid date. Could not be parsed.", ex);
-        }
+        aT = data.getInt(9, 16);
+        aR = data.getInt(17, 24);
+        sB = data.getLong(25, 41);
+        oD = data.getLocalDate(42, 47);
+        sF = data.getInt(48, 80);
 
         if (0 != sF) {
             throw new ValidationException("Invalid filler. Should be all zeros.");

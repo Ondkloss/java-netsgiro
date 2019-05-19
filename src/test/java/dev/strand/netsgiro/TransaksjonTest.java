@@ -96,4 +96,18 @@ public class TransaksjonTest {
         });
         Assertions.assertEquals("Invalid transaction type. Should match type from previous post.", thrown.getMessage());
     }
+
+    @Test
+    public void transaksjonMismatchTransactionType3Test() throws ValidationException {
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+            Record post1 = new Record(
+                    "NY09103000000012403040124112345000000000000044000           33000083672049000000");
+            Record post2 = new Record(
+                    "NY091131000000160004322610945611540000000230304888810111280000000000000000000000");
+            Record post3 = new Record(
+                    "NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZYabcdefghijklmn0000000000000000000000000");
+            new Transaksjon(post1, post2, post3);
+        });
+        Assertions.assertEquals("Invalid transaction type. Should match type from previous post.", thrown.getMessage());
+    }
 }

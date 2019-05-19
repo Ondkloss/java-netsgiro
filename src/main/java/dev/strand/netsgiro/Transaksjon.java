@@ -47,24 +47,18 @@ public class Transaksjon {
         String f, k;
         LocalDate oD;
 
-        try {
-            t = data.getInt(5, 6);
-            tN = data.getInt(9, 15);
-            oD = data.getLocalDate(16, 21);
-            sI = data.getInt(22, 23);
-            dK = data.getInt(24, 25);
-            dN = data.getInt(26, 26);
-            lN = data.getInt(27, 31);
-            f = data.getString(32, 32);
-            b = data.getLong(33, 49);
-            k = data.getString(50, 74).trim();
-            kU = data.getInt(75, 76);
-            b1F = data.getInt(77, 80);
-        } catch (NumberFormatException ex) {
-            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
-        } catch (DateTimeParseException ex) {
-            throw new ValidationException("Invalid date. Could not be parsed.", ex);
-        }
+        t = data.getInt(5, 6);
+        tN = data.getInt(9, 15);
+        oD = data.getLocalDate(16, 21);
+        sI = data.getInt(22, 23);
+        dK = data.getInt(24, 25);
+        dN = data.getInt(26, 26);
+        lN = data.getInt(27, 31);
+        f = data.getString(32, 32);
+        b = data.getLong(33, 49);
+        k = data.getString(50, 74).trim();
+        kU = data.getInt(75, 76);
+        b1F = data.getInt(77, 80);
 
         if (!Util.list(10, 21).contains(t)) {
             throw new ValidationException("Invalid transaction type. Should be between 10 and 21, inclusive.");
@@ -102,20 +96,14 @@ public class Transaksjon {
         long bN, dK;
         LocalDate oD;
 
-        try {
-            t = data.getInt(5, 6);
-            tN = data.getInt(9, 15);
-            bN = data.getLong(16, 25);
-            aR = data.getInt(26, 34);
-            b2F1 = data.getInt(35, 41);
-            oD = data.getLocalDate(42, 47);
-            dK = data.getLong(48, 58);
-            b2F2 = data.getInt(59, 80);
-        } catch (NumberFormatException ex) {
-            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
-        } catch (DateTimeParseException ex) {
-            throw new ValidationException("Invalid date. Could not be parsed.", ex);
-        }
+        t = data.getInt(5, 6);
+        tN = data.getInt(9, 15);
+        bN = data.getLong(16, 25);
+        aR = data.getInt(26, 34);
+        b2F1 = data.getInt(35, 41);
+        oD = data.getLocalDate(42, 47);
+        dK = data.getLong(48, 58);
+        b2F2 = data.getInt(59, 80);
 
         if (t != transaksjonsType) {
             throw new ValidationException("Invalid transaction type. Should match type from previous post.");
@@ -138,16 +126,10 @@ public class Transaksjon {
         int t, tN, b3F;
         String fM;
 
-        try {
-            t = data.getInt(5, 6);
-            tN = data.getInt(9, 15);
-            fM = data.getString(16, 55);
-            b3F = data.getInt(56, 80);
-        } catch (NumberFormatException ex) {
-            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
-        } catch (DateTimeParseException ex) {
-            throw new ValidationException("Invalid date. Could not be parsed.", ex);
-        }
+        t = data.getInt(5, 6);
+        tN = data.getInt(9, 15);
+        fM = data.getString(16, 55);
+        b3F = data.getInt(56, 80);
 
         if (t != transaksjonsType) {
             throw new ValidationException("Invalid transaction type. Should match type from previous post.");

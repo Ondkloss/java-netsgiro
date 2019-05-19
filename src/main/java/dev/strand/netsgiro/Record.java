@@ -8,6 +8,7 @@ import dev.strand.netsgiro.values.Type;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Record {
 
@@ -23,18 +24,17 @@ public class Record {
     }
 
     private void parseData() throws ValidationException {
-        if (data.length() != 80) {
+        if (data == null) {
+            throw new ValidationException("Invalid data. Cannot be null.");
+        }
+        else if (data.length() != 80) {
             throw new ValidationException("Invalid line length. Must be 80 characters.");
         }
 
-        try {
-            formatKode = getString(1, 2);
-            tjenesteKode = getInt(3, 4);
-            type = getInt(5, 6);
-            recordType = getInt(7, 8);
-        } catch (NumberFormatException ex) {
-            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
-        }
+        formatKode = getString(1, 2);
+        tjenesteKode = getInt(3, 4);
+        type = getInt(5, 6);
+        recordType = getInt(7, 8);
 
         if (!validate()) {
             throw new ValidationException("Invalid record type. Cannot be identified.");
@@ -88,20 +88,36 @@ public class Record {
         return data;
     }
 
-    public long getLong(int from, int to) throws NumberFormatException {
-        return Long.parseLong(getString(from, to));
+    public long getLong(int from, int to) throws ValidationException {
+        try {
+            return Long.parseLong(getString(from, to));
+        } catch (NumberFormatException ex) {
+            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
+        }
     }
 
-    public int getInt(int from, int to) throws NumberFormatException {
-        return Integer.parseInt(getString(from, to));
+    public int getInt(int from, int to) throws ValidationException {
+        try {
+            return Integer.parseInt(getString(from, to));
+        } catch (NumberFormatException ex) {
+            throw new ValidationException("Invalid numeric field. Could not be parsed.", ex);
+        }
     }
 
-    public LocalDate getLocalDate(int from, int to) {
-        return LocalDate.parse(getString(from, to), DateTimeFormatter.ofPattern("ddMMyy"));
+    public LocalDate getLocalDate(int from, int to) throws ValidationException {
+        try {
+            return LocalDate.parse(getString(from, to), DateTimeFormatter.ofPattern("ddMMyy"));
+        } catch (DateTimeParseException ex) {
+            throw new ValidationException("Invalid date. Could not be parsed.", ex);
+        }
     }
 
-    public String getString(int from, int to) {
+    public String getString(int from, int to) throws ValidationException {
+        try {
         return getData().substring(from - 1, to);
+        } catch (IndexOutOfBoundsException ex) {
+            throw new ValidationException("Invalid region. Requested segment is out of bounds.");
+        }
     }
 
 }
