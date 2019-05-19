@@ -128,7 +128,7 @@ public class Transaksjon {
 
         t = data.getInt(5, 6);
         tN = data.getInt(9, 15);
-        fM = data.getString(16, 55);
+        fM = data.getString(16, 55).trim();
         b3F = data.getInt(56, 80);
 
         if (t != transaksjonsType) {

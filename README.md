@@ -8,6 +8,14 @@ It currently does not support "Autogiro", "AvtaleGiro", "Direkte remittering" or
 
 (While tests are limited it is not "production ready" and comes with no guarantees.)
 
+## Example usage
+
+If you have a OCR file:
+
+    List<String> lines = Files.readAllLines(Paths.get("path", "to", "ocr.txt"), StandardCharsets.ISO_8859_1);
+    Parser p = new Parser(lines.toArray(new String[0]));
+    Forsendelse f = p.parse();
+
 ## Source commands
 
 To build:

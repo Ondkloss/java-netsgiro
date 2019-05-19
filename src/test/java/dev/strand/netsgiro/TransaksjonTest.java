@@ -62,6 +62,16 @@ public class TransaksjonTest {
     }
 
     @Test
+    public void transaksjonPost3Test2() throws ValidationException {
+        Record post1 = new Record("NY09213000000012403040124012345000000000000044000                         000000");
+        Record post2 = new Record("NY092131000000160004322610945611540000000230304000000000000000000000000000000000");
+        Record post3 = new Record("NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZY              0000000000000000000000000");
+        Transaksjon t = new Transaksjon(post1, post2, post3);
+        System.out.println(t);
+        Assertions.assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXZY", t.getFritekstMelding());
+    }
+
+    @Test
     public void transaksjonInvalidNumericTest() throws ValidationException {
         ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
             Record post1 = new Record(
