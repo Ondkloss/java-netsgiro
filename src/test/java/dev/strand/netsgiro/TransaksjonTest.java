@@ -97,27 +97,90 @@ public class TransaksjonTest {
 
     @Test
     public void transaksjonMismatchTransactionTypeTest() throws ValidationException {
-        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+        ValidationException thrown1 = Assertions.assertThrows(ValidationException.class, () -> {
             Record post1 = new Record(
                     "NY09103000000012403040124112345000000000000044000           33000083672049000000");
             Record post2 = new Record(
                     "NY091131000000160004322610945611540000000230304888810111280000000000000000000000");
             new Transaksjon(post1, post2);
         });
-        Assertions.assertEquals("Invalid transaction type. Should match type from previous post.", thrown.getMessage());
-    }
 
-    @Test
-    public void transaksjonMismatchTransactionType3Test() throws ValidationException {
-        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+        ValidationException thrown2 = Assertions.assertThrows(ValidationException.class, () -> {
             Record post1 = new Record(
                     "NY09103000000012403040124112345000000000000044000           33000083672049000000");
             Record post2 = new Record(
-                    "NY091131000000160004322610945611540000000230304888810111280000000000000000000000");
+                    "NY091031000000160004322610945611540000000230304888810111280000000000000000000000");
             Record post3 = new Record(
                     "NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZYabcdefghijklmn0000000000000000000000000");
             new Transaksjon(post1, post2, post3);
         });
-        Assertions.assertEquals("Invalid transaction type. Should match type from previous post.", thrown.getMessage());
+
+        Assertions.assertEquals("Invalid transaction type. Should match type from previous post.",
+                thrown1.getMessage());
+        Assertions.assertEquals("Invalid transaction type. Should match type from previous post.",
+                thrown2.getMessage());
+    }
+
+    @Test
+    public void transaksjonInvalidFillerTest() throws ValidationException {
+        ValidationException thrown1 = Assertions.assertThrows(ValidationException.class, () -> {
+            Record post1 = new Record(
+                    "NY09213000000012403040124012345000000000000044000                         000001");
+            Record post2 = new Record(
+                    "NY092131000000160004322610945611540000000230304000000000000000000000000000000000");
+            Record post3 = new Record(
+                    "NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZYabcdefghijklmn0000000000000000000000000");
+            new Transaksjon(post1, post2, post3);
+        });
+        ValidationException thrown2 = Assertions.assertThrows(ValidationException.class, () -> {
+            Record post1 = new Record(
+                    "NY09213000000012403040124012345000000000000044000                         000000");
+            Record post2 = new Record(
+                    "NY092131000000160004322610945611540000000230304000000000000000000000000000000001");
+            Record post3 = new Record(
+                    "NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZYabcdefghijklmn0000000000000000000000000");
+            new Transaksjon(post1, post2, post3);
+        });
+        ValidationException thrown3 = Assertions.assertThrows(ValidationException.class, () -> {
+            Record post1 = new Record(
+                    "NY09213000000012403040124012345000000000000044000                         000000");
+            Record post2 = new Record(
+                    "NY092131000000160004322610945611540000000230304000000000000000000000000000000000");
+            Record post3 = new Record(
+                    "NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZYabcdefghijklmn0000000000000000000000001");
+            new Transaksjon(post1, post2, post3);
+        });
+
+        Assertions.assertEquals("Invalid filler. Should be all zeros.", thrown1.getMessage());
+        Assertions.assertEquals("Invalid filler. Should be all zeros.", thrown2.getMessage());
+        Assertions.assertEquals("Invalid filler. Should be all zeros.", thrown3.getMessage());
+    }
+
+    @Test
+    public void transaksjonMismatchTransactionNumberTest() throws ValidationException {
+        ValidationException thrown1 = Assertions.assertThrows(ValidationException.class, () -> {
+            Record post1 = new Record(
+                    "NY09213000000012403040124012345000000000000044000                         000000");
+            Record post2 = new Record(
+                    "NY092131000000260004322610945611540000000230304000000000000000000000000000000000");
+            Record post3 = new Record(
+                    "NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZY              0000000000000000000000000");
+            new Transaksjon(post1, post2, post3);
+        });
+
+        ValidationException thrown2 = Assertions.assertThrows(ValidationException.class, () -> {
+            Record post1 = new Record(
+                    "NY09213000000012403040124012345000000000000044000                         000000");
+            Record post2 = new Record(
+                    "NY092131000000160004322610945611540000000230304000000000000000000000000000000000");
+            Record post3 = new Record(
+                    "NY0921320000002ABCDEFGHIJKLMNOPQRSTUVWXZY              0000000000000000000000000");
+            new Transaksjon(post1, post2, post3);
+        });
+
+        Assertions.assertEquals("Invalid transaction number. Should match number from previous post.",
+                thrown1.getMessage());
+        Assertions.assertEquals("Invalid transaction number. Should match number from previous post.",
+                thrown2.getMessage());
     }
 }
