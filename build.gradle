@@ -35,7 +35,7 @@ coveralls {
 javadoc {
     source = sourceSets.main.allJava
     classpath = configurations.compile
-    destinationDir = file("/docs")
+    destinationDir = file("$projectDir/docs")
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
