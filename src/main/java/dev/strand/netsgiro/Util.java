@@ -11,11 +11,11 @@ public class Util {
     /**
      * Get a list of all integers between two values, inclusive in both ends.
      *
-     * @param from
-     * @param to
-     * @return
+     * @param from minimum value (inclusive)
+     * @param to maximum value (inclusive)
+     * @return The requested list
      */
-    public static List<Integer> list(int from, int to) throws IllegalArgumentException {
+    public static List<Integer> list(int from, int to) {
         if (from > to) {
             throw new IllegalArgumentException("From cannot be larger than to.");
         }
@@ -29,7 +29,7 @@ public class Util {
         return result;
     }
 
-    public static int getNumberOfBelopspost(int transactionType) throws IllegalArgumentException {
+    public static int getNumberOfBelopspost(int transactionType) {
         if (!list(10, 21).contains(transactionType)) {
             throw new IllegalArgumentException("Invalid transaction type.");
         }

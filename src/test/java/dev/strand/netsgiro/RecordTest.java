@@ -23,8 +23,7 @@ public class RecordTest {
 
     @Test
     public void recordInvalidLengthTest() throws ValidationException {
-        ValidationException thrown = Assertions.assertThrows(ValidationException.class,
-                () -> new Record("nah"));
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> new Record("nah"));
         Assertions.assertEquals("Invalid line length. Must be 80 characters.", thrown.getMessage());
     }
 
@@ -44,11 +43,10 @@ public class RecordTest {
 
     @Test
     public void recordInvalidRegionTest() throws ValidationException {
-        ValidationException thrown = Assertions.assertThrows(ValidationException.class,
-                () -> {
-                    Record r = new Record("NY000010000080800170031000102000000000000000000000000000000000000000000000000000");
-                    r.getString(-5, -1);
-                });
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+            Record r = new Record("NY000010000080800170031000102000000000000000000000000000000000000000000000000000");
+            r.getString(-5, -1);
+        });
         Assertions.assertEquals("Invalid region. Requested segment is out of bounds.", thrown.getMessage());
     }
 }

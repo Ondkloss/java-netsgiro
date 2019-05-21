@@ -1,8 +1,7 @@
 package dev.strand.netsgiro.values;
 
 public enum FormatKode {
-    NY("NY"),
-    UGYLDIG("");
+    NY("NY"), UGYLDIG("");
 
     private String value;
 

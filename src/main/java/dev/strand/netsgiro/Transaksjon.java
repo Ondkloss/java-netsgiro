@@ -1,9 +1,8 @@
 package dev.strand.netsgiro;
 
-import dev.strand.netsgiro.exception.ValidationException;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+
+import dev.strand.netsgiro.exception.ValidationException;
 
 public class Transaksjon {
 
@@ -65,8 +64,7 @@ public class Transaksjon {
         } else if (dK < 1 || dK > 31) {
             throw new ValidationException("Invalid day code. Should be between 1 and 31, inclusive.");
         } else if (Util.list(18, 21).contains(transaksjonsType) && dN != 0) {
-            throw new ValidationException(
-                    "Invalid part payment number. Should be 0 for transactions of type 18 to 21, inclusive.");
+            throw new ValidationException("Invalid part payment number. Should be 0 for transactions of type 18 to 21, inclusive.");
         } else if (!f.equals("-") && !f.equals("0")) {
             throw new ValidationException("Invalid prefix. Should be either - or 0.");
         } else if (Util.list(20, 21).contains(transaksjonsType) && !k.isEmpty()) {
@@ -110,8 +108,7 @@ public class Transaksjon {
         } else if (tN != transaksjonsNummer) {
             throw new ValidationException("Invalid transaction number. Should match number from previous post.");
         } else if (Util.list(18, 21).contains(transaksjonsType) && dK != 0) {
-            throw new ValidationException(
-                    "Invalid debit account. Should be empty for transactions of type 18 to 21, inclusive.");
+            throw new ValidationException("Invalid debit account. Should be empty for transactions of type 18 to 21, inclusive.");
         } else if (0 != b2F1 || 0 != b2F2) {
             throw new ValidationException("Invalid filler. Should be all zeros.");
         }
@@ -144,114 +141,66 @@ public class Transaksjon {
         fritekstMelding = fM;
     }
 
-    /**
-     * @return the transaksjonsType
-     */
     public int getTransaksjonsType() {
         return transaksjonsType;
     }
 
-    /**
-     * @return the arkivReferanse
-     */
     public int getArkivReferanse() {
         return arkivReferanse;
     }
 
-    /**
-     * @return the belop
-     */
     public long getBelop() {
         return belop;
     }
 
-    /**
-     * @return the blankettNummer
-     */
     public long getBlankettNummer() {
         return blankettNummer;
     }
 
-    /**
-     * @return the dagKode
-     */
     public int getDagKode() {
         return dagKode;
     }
 
-    /**
-     * @return the debetKonto
-     */
     public long getDebetKonto() {
         return debetKonto;
     }
 
-    /**
-     * @return the delavregningsNummer
-     */
     public int getDelavregningsNummer() {
         return delavregningsNummer;
     }
 
-    /**
-     * @return the fortegn
-     */
     public String getFortegn() {
         return fortegn;
     }
 
-    /**
-     * @return the fritekstMelding
-     */
     public String getFritekstMelding() {
         return fritekstMelding;
     }
 
-    /**
-     * @return the kid
-     */
     public String getKid() {
         return kid;
     }
 
-    /**
-     * @return the kortUtsteder
-     */
     public int getKortUtsteder() {
         return kortUtsteder;
     }
 
-    /**
-     * @return the lopeNummer
-     */
     public int getLopeNummer() {
         return lopeNummer;
     }
 
-    /**
-     * @return the oppdragsDato
-     */
     public LocalDate getOppdragsDato() {
         return oppdragsDato;
     }
 
-    /**
-     * @return the oppgjorsDato
-     */
     public LocalDate getOppgjorsDato() {
         return oppgjorsDato;
     }
 
-    /**
-     * @return the sentralId
-     */
     public int getSentralId() {
         return sentralId;
     }
 
-    /**
-     * @return the transaksjonsNummer
-     */
     public int getTransaksjonsNummer() {
         return transaksjonsNummer;
     }

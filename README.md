@@ -2,11 +2,9 @@
 
 [![Build Status](https://travis-ci.com/Ondkloss/java-netsgiro.svg?branch=master)](https://travis-ci.com/Ondkloss/java-netsgiro) [![Coverage Status](https://coveralls.io/repos/github/Ondkloss/java-netsgiro/badge.svg?branch=master)](https://coveralls.io/github/Ondkloss/java-netsgiro?branch=master)
 
-Java implementation of "OCR Giro" specification by Nets.
+Java implementation of "OCR Giro" specification by Nets. To see the javadoc and package structure go to the [java-netgiro](https://ondkloss.github.io/java-netgiro) GitHub pages.
 
-It currently does not support "Autogiro", "AvtaleGiro", "Direkte remittering" or "Egiro".
-
-(While tests are limited it is not "production ready" and comes with no guarantees.)
+It currently does not support "Autogiro", "AvtaleGiro", "Direkte remittering" or "Egiro". While tests are limited it is not "production ready" and comes with no guarantees.
 
 ## Example usage
 
@@ -21,6 +19,10 @@ If you have a OCR file:
 To build:
 
     ./gradlew build
+
+To generate javadoc:
+
+    ./gradlew javadoc
 
 To test with coverage report:
 

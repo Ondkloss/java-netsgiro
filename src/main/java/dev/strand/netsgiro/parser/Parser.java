@@ -1,17 +1,27 @@
 package dev.strand.netsgiro.parser;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import dev.strand.netsgiro.Forsendelse;
 import dev.strand.netsgiro.Record;
 import dev.strand.netsgiro.exception.ParseException;
 import dev.strand.netsgiro.exception.ValidationException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
- * Specification:
- * https://www.nets.eu/no-nb/PublishingImages/Lists/Accordion%20%20OCR%20giro/AllItems/OCR%20giro%20Systemspesifikasjon.pdf
+ * Used to get a {@link dev.strand.netsgiro.Forsendelse} from a list of strings, typically from an OCR file.
+ *
+ * Example usage:
+ * <pre>
+ * {@code
+ * List<String> lines = Files.readAllLines(Paths.get("path", "to", "ocr.txt"), StandardCharsets.ISO_8859_1);
+ * Parser p = new Parser(lines);
+ * Forsendelse f = p.parse();
+ * }
+ * </pre>
+ *
+ * @see <a href="https://www.nets.eu/no-nb/PublishingImages/Lists/Accordion%20%20OCR%20giro/AllItems/OCR%20giro%20Systemspesifikasjon.pdf">OCR giro Systemspesifikasjon</a>
  */
 public class Parser {
 

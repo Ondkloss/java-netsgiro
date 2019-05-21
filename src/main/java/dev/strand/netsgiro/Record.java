@@ -1,14 +1,14 @@
 package dev.strand.netsgiro;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import dev.strand.netsgiro.exception.ValidationException;
 import dev.strand.netsgiro.values.FormatKode;
 import dev.strand.netsgiro.values.RecordType;
 import dev.strand.netsgiro.values.TjenesteKode;
 import dev.strand.netsgiro.values.Type;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Record {
 
@@ -26,8 +26,7 @@ public class Record {
     private void parseData() throws ValidationException {
         if (data == null) {
             throw new ValidationException("Invalid data. Cannot be null.");
-        }
-        else if (data.length() != 80) {
+        } else if (data.length() != 80) {
             throw new ValidationException("Invalid line length. Must be 80 characters.");
         }
 
@@ -64,14 +63,14 @@ public class Record {
         } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && getType() == Type.BLANK
                 && getRecordType() == RecordType.START_OPPDRAG) {
             return true;
-        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI
-                && Util.list(10, 21).contains(type) && getRecordType() == RecordType.BELOPSPOST_1) {
+        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && Util.list(10, 21).contains(type)
+                && getRecordType() == RecordType.BELOPSPOST_1) {
             return true;
-        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI
-                && Util.list(10, 21).contains(type) && getRecordType() == RecordType.BELOPSPOST_2) {
+        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && Util.list(10, 21).contains(type)
+                && getRecordType() == RecordType.BELOPSPOST_2) {
             return true;
-        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI
-                && Util.list(20, 21).contains(type) && getRecordType() == RecordType.BELOPSPOST_3) {
+        } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && Util.list(20, 21).contains(type)
+                && getRecordType() == RecordType.BELOPSPOST_3) {
             return true;
         } else if (getFormatKode() == FormatKode.NY && getTjenesteKode() == TjenesteKode.NI && getType() == Type.BLANK
                 && getRecordType() == RecordType.SLUTT_OPPDRAG) {
@@ -114,7 +113,7 @@ public class Record {
 
     public String getString(int from, int to) throws ValidationException {
         try {
-        return getData().substring(from - 1, to);
+            return getData().substring(from - 1, to);
         } catch (IndexOutOfBoundsException ex) {
             throw new ValidationException("Invalid region. Requested segment is out of bounds.", ex);
         }

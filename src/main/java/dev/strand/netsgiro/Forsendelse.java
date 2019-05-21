@@ -1,13 +1,12 @@
 package dev.strand.netsgiro;
 
-import dev.strand.netsgiro.exception.ValidationException;
-import dev.strand.netsgiro.values.RecordType;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import dev.strand.netsgiro.exception.ValidationException;
+import dev.strand.netsgiro.values.RecordType;
 
 public class Forsendelse {
 
@@ -107,58 +106,34 @@ public class Forsendelse {
         return oppdrag.add(o);
     }
 
-    /**
-     * @return the antallRecords
-     */
     public int getAntallRecords() {
         return antallRecords;
     }
 
-    /**
-     * @return the antallTransaksjoner
-     */
     public int getAntallTransaksjoner() {
         return antallTransaksjoner;
     }
 
-    /**
-     * @return the dataAvsender
-     */
     public int getDataAvsender() {
         return dataAvsender;
     }
 
-    /**
-     * @return the dataMottaker
-     */
     public int getDataMottaker() {
         return dataMottaker;
     }
 
-    /**
-     * @return the forsendelsesNummer
-     */
     public int getForsendelsesNummer() {
         return forsendelsesNummer;
     }
 
-    /**
-     * @return the oppdrag
-     */
     public List<Oppdrag> getOppdrag() {
         return Collections.unmodifiableList(oppdrag);
     }
 
-    /**
-     * @return the oppgjorsDato
-     */
     public LocalDate getOppgjorsDato() {
         return oppgjorsDato;
     }
 
-    /**
-     * @return the sumBelop
-     */
     public long getSumBelop() {
         return sumBelop;
     }
