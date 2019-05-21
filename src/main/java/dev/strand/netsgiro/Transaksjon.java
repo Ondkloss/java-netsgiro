@@ -69,7 +69,7 @@ public class Transaksjon {
                     "Invalid part payment number. Should be 0 for transactions of type 18 to 21, inclusive.");
         } else if (!f.equals("-") && !f.equals("0")) {
             throw new ValidationException("Invalid prefix. Should be either - or 0.");
-        } else if (Util.list(20, 21).contains(transaksjonsType) && !k.trim().isEmpty()) {
+        } else if (Util.list(20, 21).contains(transaksjonsType) && !k.isEmpty()) {
             throw new ValidationException("Invalid KID. Should be empty for transactions of type 20 and 21.");
         } else if (!Util.list(18, 21).contains(transaksjonsType) && kU != 0) {
             throw new ValidationException(

@@ -6,6 +6,7 @@ import dev.strand.netsgiro.exception.ParseException;
 import dev.strand.netsgiro.exception.ValidationException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,10 +15,14 @@ import java.util.List;
  */
 public class Parser {
 
-    private final String[] data;
+    private final List<String> data;
+
+    public Parser(List<String> data) {
+        this.data = data;
+    }
 
     public Parser(String[] data) {
-        this.data = data;
+        this(Arrays.asList(data));
     }
 
     public Forsendelse parse() throws ParseException {

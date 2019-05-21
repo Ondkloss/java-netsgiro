@@ -21,16 +21,17 @@ public class ParserTest {
     public void parserTest() throws ParseException, IOException, URISyntaxException {
         List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/ocr1.txt").toURI()),
                 StandardCharsets.UTF_8);
-        Parser p = new Parser(lines.toArray(new String[0]));
+        Parser p = new Parser(lines);
         Forsendelse f = p.parse();
         System.out.println(f);
     }
 
     @Disabled
     @Test
-    public void parserTest2() throws ParseException, IOException {
-        List<String> lines = Files.readAllLines(Paths.get("test", "res", "ocr2.txt"), StandardCharsets.UTF_8);
-        Parser p = new Parser(lines.toArray(new String[0]));
+    public void parserTest2() throws ParseException, IOException, URISyntaxException {
+        List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/ocr2.txt").toURI()),
+                StandardCharsets.UTF_8);
+        Parser p = new Parser(lines);
         Forsendelse f = p.parse();
         System.out.println(f);
     }
@@ -41,7 +42,7 @@ public class ParserTest {
         // The rest of the file is identical to ocr1.txt
         List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/ocr3.txt").toURI()),
                 StandardCharsets.UTF_8);
-        Parser p = new Parser(lines.toArray(new String[0]));
+        Parser p = new Parser(lines);
         Forsendelse f = p.parse();
         System.out.println(f);
     }
@@ -50,7 +51,7 @@ public class ParserTest {
     public void parserExceptionTooFewLinesTest() throws ParseException, IOException, URISyntaxException {
         List<String> lines = new ArrayList<>();
         ParseException thrown = Assertions.assertThrows(ParseException.class, () -> {
-            Parser p = new Parser(lines.toArray(new String[0]));
+            Parser p = new Parser(lines);
             p.parse();
         });
         Assertions.assertEquals("Valid data cannot be less than two records.", thrown.getMessage());
@@ -62,7 +63,7 @@ public class ParserTest {
         lines.add("NY000010000090900170031000102000000000000000000000000000000000000000000000000000"); // Start forsendelse with error
         lines.add("NY000089000000230000005000000000001563000240304000000000000000000000000000000000"); // End forsendelse
         ParseException thrown = Assertions.assertThrows(ParseException.class, () -> {
-            Parser p = new Parser(lines.toArray(new String[0]));
+            Parser p = new Parser(lines);
             p.parse();
         });
         Assertions.assertEquals("Error during validation.", thrown.getMessage());

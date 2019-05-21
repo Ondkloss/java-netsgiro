@@ -13,7 +13,7 @@ It currently does not support "Autogiro", "AvtaleGiro", "Direkte remittering" or
 If you have a OCR file:
 
     List<String> lines = Files.readAllLines(Paths.get("path", "to", "ocr.txt"), StandardCharsets.ISO_8859_1);
-    Parser p = new Parser(lines.toArray(new String[0]));
+    Parser p = new Parser(lines);
     Forsendelse f = p.parse();
 
 ## Source commands
