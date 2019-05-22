@@ -4,6 +4,10 @@ import java.time.LocalDate;
 
 import dev.strand.netsgiro.exception.ValidationException;
 
+/**
+ * An object representation of a Transaksjon.
+ * It is assembled from {@link Record}s for Beløpspost 1, Beløpspost 2 and possibly Beløpspost 3.
+ */
 public class Transaksjon {
 
     private int transaksjonsType;
@@ -63,13 +67,13 @@ public class Transaksjon {
             throw new ValidationException("Invalid transaction type. Should be between 10 and 21, inclusive.");
         } else if (dK < 1 || dK > 31) {
             throw new ValidationException("Invalid day code. Should be between 1 and 31, inclusive.");
-        } else if (Util.list(18, 21).contains(transaksjonsType) && dN != 0) {
+        } else if (Util.list(18, 21).contains(t) && dN != 0) {
             throw new ValidationException("Invalid part payment number. Should be 0 for transactions of type 18 to 21, inclusive.");
         } else if (!f.equals("-") && !f.equals("0")) {
             throw new ValidationException("Invalid prefix. Should be either - or 0.");
-        } else if (Util.list(20, 21).contains(transaksjonsType) && !k.isEmpty()) {
+        } else if (Util.list(20, 21).contains(t) && !k.isEmpty()) {
             throw new ValidationException("Invalid KID. Should be empty for transactions of type 20 and 21.");
-        } else if (!Util.list(18, 21).contains(transaksjonsType) && kU != 0) {
+        } else if (!Util.list(18, 21).contains(t) && kU != 0) {
             throw new ValidationException(
                     "Invalid card supplier. Should be empty for all other transactions than type 18 to 21, inclusive.");
         } else if (0 != b1F) {
@@ -130,7 +134,7 @@ public class Transaksjon {
 
         if (t != transaksjonsType) {
             throw new ValidationException("Invalid transaction type. Should match type from previous post.");
-        } else if (!Util.list(20, 21).contains(transaksjonsType)) {
+        } else if (!Util.list(20, 21).contains(t)) {
             throw new ValidationException("Invalid transaction type. Should be of type 20 or 21.");
         } else if (tN != transaksjonsNummer) {
             throw new ValidationException("Invalid transaction number. Should match number from previous post.");

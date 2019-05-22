@@ -8,6 +8,10 @@ import java.util.List;
 import dev.strand.netsgiro.exception.ValidationException;
 import dev.strand.netsgiro.values.RecordType;
 
+/**
+ * An object representation of a Forsendelse.
+ * It is assembled from a start and end {@link Record}, and possibly contents.
+ */
 public class Forsendelse {
 
     List<Oppdrag> oppdrag = new ArrayList<>();

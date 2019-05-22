@@ -9,6 +9,10 @@ import dev.strand.netsgiro.exception.ValidationException;
 import dev.strand.netsgiro.values.RecordType;
 import dev.strand.netsgiro.values.Type;
 
+/**
+ * An object representation of an Oppdrag.
+ * It is assembled from a start and end {@link Record}, and possibly contents.
+ */
 public class Oppdrag {
 
     List<Transaksjon> transaksjoner = new ArrayList<>();

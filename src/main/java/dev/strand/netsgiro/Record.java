@@ -10,6 +10,10 @@ import dev.strand.netsgiro.values.RecordType;
 import dev.strand.netsgiro.values.TjenesteKode;
 import dev.strand.netsgiro.values.Type;
 
+/**
+ * An object representation of a line in an OCR file.
+ * Each record has to be 80 characters long and must match a known format.
+ */
 public class Record {
 
     private final String data;

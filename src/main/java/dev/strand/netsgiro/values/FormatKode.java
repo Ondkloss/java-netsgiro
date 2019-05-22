@@ -1,5 +1,11 @@
 package dev.strand.netsgiro.values;
 
+import dev.strand.netsgiro.Record;
+
+/**
+ * Represents the "Format kode" portion of a {@link Record}.
+ * It is typically found in positions 1-2 of a line from the OCR file.
+ */
 public enum FormatKode {
     NY("NY"), UGYLDIG("");
 

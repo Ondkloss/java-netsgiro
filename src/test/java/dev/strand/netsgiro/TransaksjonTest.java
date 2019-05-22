@@ -154,4 +154,59 @@ public class TransaksjonTest {
                 Assertions.assertEquals("Invalid transaction number. Should match number from previous post.", thrown1.getMessage());
                 Assertions.assertEquals("Invalid transaction number. Should match number from previous post.", thrown2.getMessage());
         }
+
+        @Test
+        public void transaksjonInvalidDayCodeTest() throws ValidationException {
+                ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+                        Record post1 = new Record("NY09103000000012403040132112345000000000000044000           33000083672049000000");
+                        Record post2 = new Record("NY091031000000160004322610945611540000000230304888810111280000000000000000000000");
+                        new Transaksjon(post1, post2);
+                });
+                Assertions.assertEquals("Invalid day code. Should be between 1 and 31, inclusive.", thrown.getMessage());
+        }
+
+        @Test
+        public void transaksjonInvalidPrefixTest() throws ValidationException {
+                ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+                        Record post1 = new Record("NY09103000000012403040124112345+00000000000044000           33000083672049000000");
+                        Record post2 = new Record("NY091031000000160004322610945611540000000230304888810111280000000000000000000000");
+                        new Transaksjon(post1, post2);
+                });
+                Assertions.assertEquals("Invalid prefix. Should be either - or 0.", thrown.getMessage());
+        }
+
+        @Test
+        public void transaksjonInvalidKidTest() throws ValidationException {
+                ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+                        Record post1 = new Record("NY09213000000012403040124012345000000000000044000           33000083672049000000");
+                        Record post2 = new Record("NY092131000000160004322610945611540000000230304000000000000000000000000000000000");
+                        Record post3 = new Record("NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZYabcdefghijklmn0000000000000000000000000");
+                        Transaksjon t = new Transaksjon(post1, post2, post3);
+                });
+                Assertions.assertEquals("Invalid KID. Should be empty for transactions of type 20 and 21.", thrown.getMessage());
+        }
+
+        @Test
+        public void transaksjonInvalidCardSupplierTest() throws ValidationException {
+                ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+                        Record post1 = new Record("NY09103000000012403040124112345000000000000044000           33000083672049100000");
+                        Record post2 = new Record("NY091031000000160004322610945611540000000230304888810111280000000000000000000000");
+                        new Transaksjon(post1, post2);
+                });
+                Assertions.assertEquals(
+                                "Invalid card supplier. Should be empty for all other transactions than type 18 to 21, inclusive.",
+                                thrown.getMessage());
+        }
+
+        @Test
+        public void transaksjonInvalidPaymentNumberTest() throws ValidationException {
+                ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+                        Record post1 = new Record("NY09213000000012403040124112345000000000000044000           33000083672049000000");
+                        Record post2 = new Record("NY092131000000160004322610945611540000000230304000000000000000000000000000000000");
+                        Record post3 = new Record("NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZYabcdefghijklmn0000000000000000000000000");
+                        new Transaksjon(post1, post2, post3);
+                });
+                Assertions.assertEquals("Invalid part payment number. Should be 0 for transactions of type 18 to 21, inclusive.",
+                                thrown.getMessage());
+        }
 }

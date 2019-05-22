@@ -20,9 +20,35 @@ public class ParserTest {
     @Test
     public void parserTest() throws ParseException, IOException, URISyntaxException {
         List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/ocr1.txt").toURI()), StandardCharsets.UTF_8);
-        Parser p = new Parser(lines);
-        Forsendelse f = p.parse();
-        System.out.println(f);
+        Parser p1 = new Parser(lines);
+        Forsendelse f1 = p1.parse();
+        System.out.println(f1);
+        Assertions.assertEquals(1, f1.getOppdrag().size());
+        Assertions.assertEquals(50, f1.getAntallRecords());
+        Assertions.assertEquals(23, f1.getOppdrag().get(0).getTransaksjoner().size());
+        Assertions.assertEquals(48, f1.getOppdrag().get(0).getAntallRecords());
+
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            f1.getOppdrag().add(null);
+        });
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            f1.getOppdrag().get(0).getTransaksjoner().add(null);
+        });
+
+        Parser p2 = new Parser(lines.toArray(new String[0]));
+        Forsendelse f2 = p2.parse();
+        System.out.println(f2);
+        Assertions.assertEquals(1, f2.getOppdrag().size());
+        Assertions.assertEquals(50, f2.getAntallRecords());
+        Assertions.assertEquals(23, f2.getOppdrag().get(0).getTransaksjoner().size());
+        Assertions.assertEquals(48, f2.getOppdrag().get(0).getAntallRecords());
+
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            f2.getOppdrag().add(null);
+        });
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            f2.getOppdrag().get(0).getTransaksjoner().add(null);
+        });
     }
 
     @Disabled
@@ -36,13 +62,15 @@ public class ParserTest {
 
     @Test
     public void parserTest3() throws ParseException, IOException, URISyntaxException {
-        // This test is hand made with the first transaction being replaced with one of
-        // type 21
-        // The rest of the file is identical to ocr1.txt
+        // This test is hand made with only one transaction of type 21
         List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/ocr3.txt").toURI()), StandardCharsets.UTF_8);
         Parser p = new Parser(lines);
         Forsendelse f = p.parse();
-        System.out.println(f);
+
+        Assertions.assertEquals(7, f.getAntallRecords());
+        Assertions.assertEquals(1, f.getAntallTransaksjoner());
+        Assertions.assertEquals(44000, f.getSumBelop());
+        Assertions.assertEquals(44000, f.getOppdrag().get(0).getTransaksjoner().get(0).getBelop());
     }
 
     @Test

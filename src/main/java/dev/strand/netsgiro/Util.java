@@ -3,6 +3,9 @@ package dev.strand.netsgiro;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A collection of static utility functions.
+ */
 public class Util {
 
     private Util() {
@@ -29,6 +32,12 @@ public class Util {
         return result;
     }
 
+    /**
+     * Get the number of Beløpsposts associated with a given transaction type.
+     *
+     * @param transactionType The transaction type
+     * @return The number of Beløpsposts
+     */
     public static int getNumberOfBelopspost(int transactionType) {
         if (!list(10, 21).contains(transactionType)) {
             throw new IllegalArgumentException("Invalid transaction type.");
