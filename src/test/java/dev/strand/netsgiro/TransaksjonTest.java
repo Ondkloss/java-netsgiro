@@ -193,8 +193,7 @@ public class TransaksjonTest {
                         Record post2 = new Record("NY091031000000160004322610945611540000000230304888810111280000000000000000000000");
                         new Transaksjon(post1, post2);
                 });
-                Assertions.assertEquals(
-                                "Invalid card supplier. Should be empty for all other transactions than type 18 to 21, inclusive.",
+                Assertions.assertEquals("Invalid card supplier. Should be empty for all other transactions than type 18 to 21, inclusive.",
                                 thrown.getMessage());
         }
 
@@ -207,6 +206,18 @@ public class TransaksjonTest {
                         new Transaksjon(post1, post2, post3);
                 });
                 Assertions.assertEquals("Invalid part payment number. Should be 0 for transactions of type 18 to 21, inclusive.",
+                                thrown.getMessage());
+        }
+
+        @Test
+        public void transaksjonInvalidDebitAccountTest() throws ValidationException {
+                ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+                        Record post1 = new Record("NY09213000000012403040124012345000000000000044000                         000000");
+                        Record post2 = new Record("NY092131000000160004322610945611540000000230304000000000100000000000000000000000");
+                        Record post3 = new Record("NY0921320000001ABCDEFGHIJKLMNOPQRSTUVWXZYabcdefghijklmn0000000000000000000000000");
+                        new Transaksjon(post1, post2, post3);
+                });
+                Assertions.assertEquals("Invalid debit account. Should be empty for transactions of type 18 to 21, inclusive.",
                                 thrown.getMessage());
         }
 }

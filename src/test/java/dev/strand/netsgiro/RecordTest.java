@@ -49,4 +49,12 @@ public class RecordTest {
         });
         Assertions.assertEquals("Invalid region. Requested segment is out of bounds.", thrown.getMessage());
     }
+
+    @Test
+    public void recordInvalidNullTest() throws ValidationException {
+        ValidationException thrown = Assertions.assertThrows(ValidationException.class, () -> {
+            new Record(null);
+        });
+        Assertions.assertEquals("Invalid data. Cannot be null.", thrown.getMessage());
+    }
 }
